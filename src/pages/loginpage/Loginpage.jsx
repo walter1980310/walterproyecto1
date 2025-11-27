@@ -1,62 +1,58 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   function handleLogin(e) {
     e.preventDefault();
 
-    // login MUY básico (sin backend)
-    const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    if (!storedUser) {
-      alert("No existe un usuario registrado. Debes crear una cuenta.");
+    if (email === "" || password === "") {
+      alert("Completa los campos");
       return;
     }
 
-    if (
-      storedUser.email === email &&
-      storedUser.password === password
-    ) {
-      alert("Inicio de sesión exitoso");
-      navigate("/");
-    } else {
-      alert("Credenciales incorrectas");
-    }
+    
+    localStorage.setItem("user", JSON.stringify({ email }));
+
+    alert("Login exitoso");
+    navigate("/");
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Iniciar Sesión</h1>
+    <div className="login-container">
+      <h2>Iniciar Sesión</h2>
 
-      <form
-        onSubmit={handleLogin}
-        style={{ display: "flex", flexDirection: "column", width: "250px", gap: "10px" }}
-      >
+      <form onSubmit={handleLogin}>
+        <label>Email</label>
         <input
           type="email"
-          placeholder="Correo"
+          placeholder="Ingresa tu email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
 
+        <label>Contraseña</label>
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="Ingresa tu contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
 
         <button type="submit">Ingresar</button>
       </form>
 
-      <p style={{ marginTop: "10px" }}>
-        ¿No tenés cuenta? <a href="/register">Crear cuenta</a>
+      <p>
+        ¿No tenés cuenta?{" "}
+        <span className="register-link" onClick={() => navigate("/register")}>
+          Registrate aquí
+        </span>
       </p>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./RegisterPage.css";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -8,38 +9,35 @@ export default function RegisterPage() {
   });
 
   function handleChange(e) {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Datos del registro:", form);
-    alert("Registro enviado (simulado)");
+    alert("Registro enviado (solo frontend)");
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Registro</h1>
+    <div className="register-container">
+      <h1>Crear Cuenta</h1>
 
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "300px" }}>
-        
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="nombre"
           placeholder="Nombre"
           value={form.nombre}
           onChange={handleChange}
+          required
         />
 
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder="Correo electrónico"
           value={form.email}
           onChange={handleChange}
+          required
         />
 
         <input
@@ -48,6 +46,7 @@ export default function RegisterPage() {
           placeholder="Contraseña"
           value={form.password}
           onChange={handleChange}
+          required
         />
 
         <button type="submit">Registrarse</button>
