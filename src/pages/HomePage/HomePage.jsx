@@ -1,13 +1,22 @@
-
 import HomeBanner from "./HomeBanner";
-import ProductCard from "../../components/ProductCard";
+import { Link } from "react-router-dom";
+import "./HomePage.css";
 
 export default function HomePage() {
   return (
-    <div style={{ padding: "20px" }}>
+    <section className="home">
       <HomeBanner />
-      <h1>Página de inicio</h1>
-      <ProductCard />
-    </div>
+
+      <div className="home-content">
+        <h1>Bienvenido a WalterShop</h1>
+        <p>
+          Explorá nuestra selección de productos y encontrá lo que estás buscando.
+        </p>
+
+        <Link to="/productos" className="home-cta">
+          Ver productos
+        </Link>
+      </div>
+    </section>
   );
 }

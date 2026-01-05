@@ -1,12 +1,15 @@
-import HomeBanner from "./HomeBanner";
-import ProductCard from "../../components/ProductCard";
+import React from "react";
+import "./HomeBanner.css";
 
-export default function HomePage() {
+export default function HomeBanner({
+  title = "Bienvenido a la tienda",
+  subtitle = "Encuentra aquí una selección de productos de ejemplo.",
+  className = "",
+}) {
   return (
-    <div style={{ padding: "20px" }}>
-      <HomeBanner />
-      <h1>Página de inicio</h1>
-      <ProductCard />
-    </div>
+    <section className={`home-banner ${className}`.trim()}>
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+    </section>
   );
 }

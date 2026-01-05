@@ -1,59 +1,51 @@
-
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import "./LoginPage.css";
 
 export default function LoginPage() {
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  function handleLogin(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    setError("");
 
-
-    if (email === "" || password === "") {
-      alert("Completa los campos");
-      return;
+    try {
+      login(email, password);
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
     }
-
-    
-    localStorage.setItem("user", JSON.stringify({ email }));
-
-    alert("Login exitoso");
-    navigate("/");
-  }
+  };
 
   return (
     <div className="login-container">
-      <h2>Iniciar Sesión</h2>
+      <h2>Iniciar sesión</h2>
 
-      <form onSubmit={handleLogin}>
-        <label>Email</label>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
-          placeholder="Ingresa tu email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label>Contraseña</label>
         <input
           type="password"
-          placeholder="Ingresa tu contraseña"
+          placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
+        {error && <p className="error">{error}</p>}
+
         <button type="submit">Ingresar</button>
       </form>
-
-      <p>
-        ¿No tenés cuenta?{" "}
-        <span className="register-link" onClick={() => navigate("/register")}>
-          Registrate aquí
-        </span>
-      </p>
     </div>
   );
 }
