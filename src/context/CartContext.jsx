@@ -1,49 +1,62 @@
-import { createContext, useState, useEffect, useCallback } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-export const CartContext = createContext(null);
+const CartContext = createContext();
 
-export function CartProvider({ children }) {
+export const CartProvider = ({ children }) => {
+  // 1️⃣ Cargar carrito desde localStorage
   const [cart, setCart] = useState(() => {
-    try {
-      const storedCart = localStorage.getItem("cart");
-      return storedCart ? JSON.parse(storedCart) : [];
-    } catch (error) {
-      console.error("Error leyendo cart del localStorage", error);
-      return [];
-    }
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
   });
 
+  // 2️⃣ Guardar carrito cada vez que cambia
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = useCallback((product) => {
+  const addToCart = (product) => {
     setCart((prev) => {
-      const exists = prev.find((p) => p.id === product.id);
+      const existe = prev.find((p) => p._id === product._id);
 
-      if (exists) {
+      if (existe) {
         return prev.map((p) =>
-          p.id === product.id ? { ...p, qty: p.qty + 1 } : p
+          p._id === product._id
+            ? { ...p, qty: p.qty + 1 }
+            : p
         );
       }
 
       return [...prev, { ...product, qty: 1 }];
     });
-  }, []);
+  };
 
-  const removeFromCart = useCallback((id) => {
-    setCart((prev) => prev.filter((p) => p.id !== id));
-  }, []);
+  const removeFromCart = (id) => {
+    setCart((prev) => prev.filter((p) => p._id !== id));
+  };
 
-  const clearCart = useCallback(() => {
+  // ✅ FUNCIÓN QUE FALTABA
+  const clearCart = () => {
     setCart([]);
-  }, []);
+  };
+
+  const total = cart.reduce(
+    (acc, p) => acc + p.precio * p.qty,
+    0
+  );
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        clearCart, // ✅ exportada
+        total,
+      }}
     >
       {children}
     </CartContext.Provider>
   );
-}
+};
+
+export const useCart = () => useContext(CartContext);

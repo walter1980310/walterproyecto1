@@ -1,34 +1,174 @@
-# React + Vite
+# 🛒 Proyecto E-commerce Full Stack (React + Node + MongoDB)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##  Descripción
 
-Currently, two official plugins are available:
+Este proyecto es una **aplicación de e-commerce full stack** desarrollada como práctica académica y **proyecto de portfolio personal**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+El objetivo principal fue construir una aplicación completa separando correctamente **frontend y backend**, aplicando buenas prácticas, manejo de estado, ruteo, persistencia de datos y simulación de autenticación.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+##  Funcionalidades
 
-## Expanding the ESLint configuration
+### Frontend
+- Listado de productos por categoría
+- Filtros (Electrónica / Ropa / Accesorios)
+- Carrito de compras:
+  - Agregar productos
+  - Eliminar productos
+  - Vaciar carrito
+  - Persistencia en `localStorage`
+- Contador de carrito (badge en navbar)
+- Login simulado (auth mock)
+- Navegación con React Router
+- Diseño responsive básico
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+- API REST con Node.js y Express
+- CRUD de productos
+- Conexión a base de datos MongoDB
+- Modelo de productos con Mongoose
+- Separación por rutas, controladores y modelos
 
-## Alias / Redirect: `ProdutosPage` → `ProductosPage`
+---
 
-Se renombró la página de `ProdutosPage` (posible nombre en portugués) a `ProductosPage` (español) para mayor consistencia.
+## Tecnologías utilizadas
 
-Si quieres mantener compatibilidad temporal con imports que todavía apuntan a la ruta antigua, puedes crear un archivo re-exportador en la ruta antigua que redirija al nuevo componente. Ejemplo:
+### Frontend
+- React
+- Vite
+- React Router DOM
+- Context API
+- JavaScript (ES6+)
+- HTML5 / CSS3
+- LocalStorage
 
-1. Crear `src/pages/ProdutosPage/index.js` con este contenido:
+### Backend
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- dotenv
+- CORS
 
-```js
-export { default } from "../ProductosPage/ProductosPage.jsx";
-```
+---
 
-2. Alternativamente, puedes eliminar el directorio `src/pages/ProdutosPage` una vez que todas las referencias hayan sido actualizadas.
+##  Estructura del proyecto
 
-Notas:
-- El import actual en la app apunta a `src/pages/ProductosPage/ProductosPage.jsx`. Revisa `src/App.jsx` si necesitas revertir o adaptar rutas.
-- Ejecuta `npm run lint` y `npm run dev` tras cambios para detectar imports rotos.
+proyecto-ecommerce/
+│
+├── backend/
+│ ├── config/
+│ ├── models/
+│ ├── routes/
+│ ├── controllers/
+│ ├── server.js
+│
+├── src/
+│ ├── assets/
+│ │ └── images/
+│ ├── components/
+│ ├── context/
+│ ├── data/
+│ ├── pages/
+│ ├── App.jsx
+│ ├── main.jsx
+│
+├── package.json
+├── vite.config.js
+
+
+---
+
+## ▶ Cómo ejecutar el proyecto
+
+### Requisitos
+- Node.js instalado
+- MongoDB (local o Atlas)
+
+
+---
+
+## ▶️ Cómo ejecutar el proyecto
+
+### Requisitos
+- Node.js instalado
+- MongoDB (local o Atlas)
+
+### Frontend
+```bash
+npm install
+npm run dev
+
+### abrir el navegador
+http://localhost:5173
+
+###  Backend
+
+cd backend
+npm install
+npm run dev
+
+### servidor
+
+http://localhost:3000
+
+## 🖼 Capturas del proyecto
+
+### Home
+![Home](screenshots/home.png)
+
+### Productos
+![Productos](screenshots/productos.png)
+
+### Carrito
+![Carrito](screenshots/carrito.png)
+
+### Login
+![Login](screenshots/login.png)
+
+Listado de productos
+
+Filtro por categorías
+
+Carrito de compras:
+
+Agregar productos
+
+Eliminar productos
+
+Vaciar carrito
+
+Persistencia en localStorage
+
+Login simulado
+
+Navegación con React Router
+
+Backend con API REST
+
+Conexión a MongoDB
+
+
+
+### Aprendisaje
+
+Manejo de estado global con Context API
+
+Consumo de APIs
+
+Arquitectura frontend / backend
+
+Modelado de datos con Mongoose
+
+Organización de proyectos Full Stack
+
+Buenas prácticas de React
+
+
+👤 Autor
+
+Walter Ghisolfo
+Desarrollador Frontend / Full Stack Jr
+
+Proyecto realizado con fines educativos y de portfolio.

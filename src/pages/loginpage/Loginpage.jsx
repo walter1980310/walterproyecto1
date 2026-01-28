@@ -1,26 +1,9 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
 import "./LoginPage.css";
 
 export default function LoginPage() {
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
-
-    try {
-      login(email, password);
-      navigate("/");
-    } catch (err) {
-      setError(err.message);
-    }
+    alert("Login en desarrollo. Demo visual únicamente.");
   };
 
   return (
@@ -31,21 +14,23 @@ export default function LoginPage() {
         <input
           type="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          disabled
         />
 
         <input
           type="password"
           placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          disabled
         />
 
-        {error && <p className="error">{error}</p>}
-
-        <button type="submit">Ingresar</button>
+        <button type="submit" disabled>
+          Ingresar
+        </button>
       </form>
+
+      <p className="login-info">
+        Funcionalidad en desarrollo (demo visual).
+      </p>
     </div>
   );
 }

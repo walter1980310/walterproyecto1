@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { useCart } from "../../context/CartContext";
 import "./CarritoPage.css";
 
 export default function CarritoPage() {
-  const { cart, removeFromCart, clearCart } = useContext(CartContext);
+  const { cart, removeFromCart, clearCart } = useCart();
 
   const total = cart.reduce(
-    (acc, item) => acc + item.price * item.qty,
+    (acc, item) => acc + item.precio,
     0
   );
 
@@ -25,20 +24,16 @@ export default function CarritoPage() {
 
       <div className="cart-grid">
         {cart.map((item) => (
-          <div key={item.id} className="cart-card">
-            <img src={item.image} alt={item.title} />
+          <div key={item._id} className="cart-card">
+            <img src={item.imagen} alt={item.nombre} />
 
             <div className="cart-info">
-              <h3>{item.title}</h3>
-              <p>Precio: ${item.price}</p>
-              <p>Cantidad: {item.qty}</p>
-              <p>
-                Subtotal: ${(item.price * item.qty).toFixed(2)}
-              </p>
+              <h3>{item.nombre}</h3>
+              <p>Precio: ${item.precio}</p>
 
               <button
                 className="remove-btn"
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => removeFromCart(item._id)}
               >
                 Eliminar
               </button>
@@ -48,7 +43,7 @@ export default function CarritoPage() {
       </div>
 
       <div className="cart-summary">
-        <h2>Total: ${total.toFixed(2)}</h2>
+        <h2>Total: ${total}</h2>
         <button className="clear-btn" onClick={clearCart}>
           Vaciar carrito
         </button>

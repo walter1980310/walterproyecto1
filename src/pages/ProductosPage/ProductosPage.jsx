@@ -1,60 +1,47 @@
-import { useEffect, useState } from "react";
-import ProductList from "../../components/Products/ProductList";
+import { useState } from "react";
+import productsData from "../../data/products";
+import ProductCard from "../../components/Products/ProductCard/ProductCard";
 import "./ProductosPage.css";
 
 export default function ProductosPage() {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [loading, setLoading] = useState(true);
+  const [categoria, setCategoria] = useState("todos");
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("https://fakestoreapi.com/products");
-      const data = await res.json();
-
-      setProducts(data);
-
-      // obtener categorías únicas
-      const uniqueCategories = [
-        "all",
-        ...new Set(data.map((p) => p.category)),
-      ];
-      setCategories(uniqueCategories);
-
-      setLoading(false);
-    }
-
-    fetchData();
-  }, []);
-
-  const filteredProducts =
-    selectedCategory === "all"
-      ? products
-      : products.filter(
-          (product) => product.category === selectedCategory
+  const productosFiltrados =
+    categoria === "todos"
+      ? productsData
+      : productsData.filter(
+          (p) => p.categoria === categoria
         );
 
-  if (loading) return <p>Cargando productos...</p>;
-
   return (
-    <section className="productos-page">
+    <section style={{ padding: "30px" }}>
       <h1>Productos</h1>
 
-      {/* Filtro */}
-      <div className="category-filter">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            className={cat === selectedCategory ? "active" : ""}
-            onClick={() => setSelectedCategory(cat)}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* FILTROS */}
+      <div style={{ marginBottom: "20px" }}>
+        <button onClick={() => setCategoria("todos")}>
+          Todos
+        </button>
+        <button onClick={() => setCategoria("electronica")}>
+          Electrónica
+        </button>
+        <button onClick={() => setCategoria("ropa")}>
+          Ropa
+        </button>
+        <button onClick={() => setCategoria("accesorios")}>
+          Accesorios
+        </button>
       </div>
 
-      <ProductList products={filteredProducts} limit={filteredProducts.length} />
+      {/* LISTADO */}
+      <div className="products-grid">
+        {productosFiltrados.map((product) => (
+          <ProductCard
+            key={product._id}
+            product={product}
+          />
+        ))}
+      </div>
     </section>
   );
 }
